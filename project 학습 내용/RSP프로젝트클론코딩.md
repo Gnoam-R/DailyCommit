@@ -66,10 +66,6 @@ private func processMenu(_ menu: Menu) {
 
 ```
 
-프롬포트 결과
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c6b4dd80-7f00-4276-8157-7d4dc020a261/8bc59441-0618-4918-b86e-3821de1f623f/Untitled.png)
-
 ## 또 optional에 관한 문제
 
 이번에는 class의 initializer에 effie가 공유한 아주 클린한 코드를 적용해 봤음
