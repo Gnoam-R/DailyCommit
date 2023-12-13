@@ -197,7 +197,7 @@ enum Recipe: String {
 <br>
 <h1 align="center">
 
-| **시작 화면** | **딸바 주문** |
+| **시작 화면** | **음료 주문** |
 |---|---|
 | <img src="https://github.com/rohhyungwoo/DailyCommit/assets/67363759/18de7961-04d7-4d52-854c-b721fd5fbcae" width="500" height="200"/> | <img src="https://github.com/rohhyungwoo/DailyCommit/assets/67363759/1cba730d-f1dc-4346-bd5c-eabb14ef9c7c" width="500" height="200"/>
 
