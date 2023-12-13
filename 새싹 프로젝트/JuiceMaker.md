@@ -1,4 +1,6 @@
-## 프로젝트 관련
+# JuiceMaker
+
+## 🤔 쥬스 메이커 입력 데이터 처리 로직
 
 `Recipe`에 rawValue 값으로 String을 넣고 `takeOrder` 함수에서 이를 매개변수로 받는다.
 
@@ -40,7 +42,103 @@ func takeOrder(_ kind: Recipe) throws {
     }
 ```
 
-## 프로젝트 제출 및 리뷰 관련 학습 내용
+### 🤔 의문점 및 문제점
+
+하나의 레시피에서 2개 이상의 과일 재료를 사용하는 것에 대한 처리를 하기 위해서 `Recipe` 의 rawValue를 문자열로 작업했다.  때문에 레시피에 대한 다양한 처리(예를 들면 화면에 나타나는 Alert의 text는 한글) 를 지원하기 힘들다
+
+화면에 rawValue를 통한 한글 text출력에 대한 해결 방법으로는 기존 `Recipe` 에 아래와 같은 코드를 추가함
+
+```swift
+enum Recipe: String {
+    case strawberry = "strawberry"
+    case banana = "banana"
+    case kiwi = "kiwi"
+    case pineapple = "pineapple"
+    case strawberryBanana = "strawberry,banana"
+    case mango = "mango"
+    case mangoKiwi = "mango,kiwi"
+    
+    var recipeName: String {
+        switch self {
+        case .strawberry:
+            return "딸기"
+        case .banana:
+            return "바나나"
+        case .kiwi:
+            return "키위"
+        case .pineapple:
+            return "파인애플"
+        case .strawberryBanana:
+            return "딸바"
+        case .mango:
+            return "망고"
+        case .mangoKiwi:
+            return "망키"
+        }
+    }
+}
+```
+
+## 😀 JuiceMaker 뷰 대응
+
+처음으로 StoryBoard를 사용해 View를 가지고 연결하는 작업을 진행했다.  이 프로젝트를 하면서 깨달은 몇가지 내용을 정리해 보려고 한다
+
+- 다수의 버튼을 하나의 IBAction func에 묶어내는 방법
+    1. 버튼에 Tag 값(정수)를 설정하여 실제 버튼이 눌렀을 때 매개변수로 전달받음
+    2. 하나의 func에 버튼 Action연결
+    3. 각각의 버튼 Tag값에 따라 다른 결과 실행
+    4. 예시 코드
+    
+    ```swift
+    @IBAction func juiceMakeBtnTapped(_ choice: UIButton) {
+        var selectedRecipe : Recipe
+        switch choice.tag {
+        case 0:
+            selectedRecipe = Recipe.strawberryBanana
+        case 1:
+            selectedRecipe = Recipe.mangoKiwi
+        case 2:
+            selectedRecipe = Recipe.strawberry
+        case 3:
+            selectedRecipe = Recipe.banana
+        case 4:
+            selectedRecipe = Recipe.pineapple
+        case 5:
+            selectedRecipe = Recipe.kiwi
+        case 6:
+            selectedRecipe = Recipe.mango
+        default:
+            selectedRecipe = Recipe.mango
+        }
+    }
+    ```
+    
+- Seg를 사용한 모달 화면 전환
+    
+    ```swift
+    private func moveFruitStore() {
+        self.performSegue(withIdentifier: "moveToStock", sender: "")
+    }
+    ```
+    
+- Alert 화면 출력
+    
+    제목, 메시지, 액션 버튼(yes, no), ActionHandler가 필요하며 애니메이션의 유무를 넣을수 있다.
+    
+    ```swift
+    let alert = UIAlertController(title: title,
+                                          message: message,
+                                          preferredStyle: preferedStyle)
+    let completeAction = UIAlertAction(title: completeTitle, style: .default) { action in
+        completionHandler?()
+    }
+    alert.addAction(completeAction)
+    currentVC.present(alert, animated: true, completion: nil)
+    ```
+    
+
+## 😃 프로젝트 제출 및 리뷰 관련 학습 내용
+
 - PR 리뷰 작성
     - Loop문인 forEach와 for in의 차이점 확인
         
@@ -83,7 +181,10 @@ func takeOrder(_ kind: Recipe) throws {
                 return test2.aa
             }
         }
+        
         ```
         
     - Guard Let과 If let의 차이
         - Guard Let의 경우 조건에 대한 빠른 블록 종료를 수행한다
+
+## 🫢 동작 화면
