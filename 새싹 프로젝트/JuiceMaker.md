@@ -187,4 +187,30 @@ enum Recipe: String {
     - Guard Let과 If let의 차이
         - Guard Let의 경우 조건에 대한 빠른 블록 종료를 수행한다
 
+
 ## 🫢 동작 화면
+
+시작 화면에서 메뉴를 고르고 해당하는 버튼을 클릭하면 과일 저장소의 과일 수량을 채크 한다. 과일 저장소에 레시피 기준 사용 가능한 과일 수량이 존재하는 경우 주문이 성공적으로 이루어지고 사용자는 Alert를 통해 주문 결과를 확인 가능하다. 
+만약 과일 저장소의 과일 재고가 충분하지 않는 경우 재고 부족에 대한 에러 처리와 함께 FruitStore화면으로 이동할 수 있는 UI를 제공한다.
+
+
+<br>
+<h1 align="center">
+
+| **시작 화면** | **딸바 주문** |
+|---|---|
+| <img src="https://github.com/rohhyungwoo/DailyCommit/assets/67363759/18de7961-04d7-4d52-854c-b721fd5fbcae" width="500" height="200"/> | <img src="https://github.com/rohhyungwoo/DailyCommit/assets/67363759/1cba730d-f1dc-4346-bd5c-eabb14ef9c7c" width="500" height="200"/>
+
+| **재고 부족** | **클릭시 화면 전환** |
+|---|---|
+| <img src="https://github.com/rohhyungwoo/DailyCommit/assets/67363759/17bccb24-996b-4442-bde2-11da5da77721" width="500" height="200"/> | <img src="https://github.com/rohhyungwoo/DailyCommit/assets/67363759/d52e57ad-86f4-4e88-b4c0-71b011ce19e6" width="500" height="200"/> 
+
+<br>
+
+
+</h1>
+<br><br>
+
+
+
+
