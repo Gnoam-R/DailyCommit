@@ -134,3 +134,77 @@ let trackingStateMessages: [TrackingState.Reason : String]
 //switch문 대체
 self.instructionMessage = trackingStateMessages[reason]
 ```
+
+### 3. LSP(Liskov Substitution Principle) - 리스코프 치환 원칙
+
+- 자식 클래스는 동작시 부모 클래스의 기능을 제한 하면 안됨
+- 부모 클래스의 타입에 자식 클래스의 인스턴스를 넣어도 동일 동작이 진행됨
+- LSP 원칙을 위반하는 경우는 자식 클래스가 부모 클래스의 기능을 오버라이딩해서 기능을 변경하거나 제한하는 경우 결과값이 다르게 나옴
+
+```swift
+// 잘못된 예시
+class Rectangle {
+    var width: Float = 0
+    var height: Float = 0
+    
+    var area: Float {
+        return width * height
+    }
+}
+
+class Square: Rectangle {
+    override var width: Float {
+        didSet {
+            height = width
+        }
+    }
+}
+
+func printArea(of rectangle: Rectangle) {
+	rectangle.height = 3
+	rectangle.width = 6
+	print(rectangle.area)
+}
+
+let rectangle = Rectangle()
+printArea(of: rectangle)
+// 18
+
+let square = Square()
+printArea(of: square)
+// 36
+
+// LSP 원칙을 지킨 올바른 예시
+protocol Shape {
+    var area: Float { get }
+}
+
+class Rectangle: Shape {
+    let width: Float
+    let height: Float
+    
+    var area: Float {
+        return width * height
+    }
+    
+    init(width: Float,
+         height: Float) {
+        self.width = width
+        self.height = height
+    }
+}
+
+class Square: Shape {
+    let length: Float
+    
+    var area: Float {
+        return length * length
+    }
+    
+    init(length: Float) {
+        self.length = length
+    }
+}
+```
+지나친 LSP는 비효율적이고, 지나친 LSP 위반은 안정성을 해치기에 둘을 잘 사용하는 판단이 중요함
+
