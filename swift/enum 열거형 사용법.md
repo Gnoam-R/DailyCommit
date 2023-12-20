@@ -113,3 +113,35 @@ guard let selectedButtonTitle = sender.currentTitle,
     return
 }
 ```
+
+
+### 순환 열거형
+
+- 순환 열거형은 열거형 항목의 연관 값이 열거형 자신의 값일떄 사용
+- 특정 항목에 한정하여 순환 열거형을 명시하고 싶다면 case 앞에 indirect 키워드를 사용
+- 모든 항목에 대해서 순환 열거형을 명시하고자 한다면 enum 앞에 indirect 키워드를 추가한다.
+
+특정 항목에 순환 열거형 항목 명시
+```swift
+enum ArithmeticExpression {
+	case number(Int)
+	indirect case addition(ArithmeticExpression, ArithmeticExpression)
+	indirect case multiplication(ArithmecticExpression, ArithmeticExpression)
+}
+```
+
+열거형 전체에 순환 열거형 명시
+```swift
+indirect enum ArithmeticExpression {
+	case number(Int)
+	case addition(ArithmeticExpression, ArithmeticExpression)
+	case multiplication(ArithmecticExpression, ArithmeticExpression)
+}
+```
+순환 열거형 사용
+```swift
+let five = ArithmeticExpression.number(5)
+let four = ArithmeticExpression.number(4)
+let sum = ArithmeticExpression.addition(five, four)
+let final = ArithmeticExpression.multiplication(sum, ArithmeticExpression.number(2))
+```
