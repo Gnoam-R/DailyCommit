@@ -1,0 +1,115 @@
+## 🤔 Delegate 패턴
+
+서로 다른 뷰 컨트롤러에 동일한 저장소(class)로 data를 연결하려고 했다.
+
+처음 시도한 방법은 저장소에 싱글턴 패턴을 적용하여 이미 생성된 객체를 가져와 사용하는 방식을 채택했다.
+
+하지만 이 경우 어디서나 접근 가능한 의존성 문제와 더불어 테스트에 어렵다는 단점이 존재한다.
+
+그래서 버드의 조언을 받아 Delegate 패턴을 적용해 보았다.
+
+1. 프로토콜 생성
+
+```swift
+protocol StockViewControllerDelegate: AnyObject {
+    func stockViewController(_ stockViewController: StockViewController, didUpdateFruit: FruitStore)
+}
+```
+
+1. 화면 이동 및 의존성 전달
+
+```swift
+private func moveFruitStore() {
+    guard let secondVC = storyboard?.instantiateViewController(withIdentifier: "StockViewController") as? StockViewController else { return }
+    secondVC.modalPresentationStyle = .fullScreen
+		secondVC.delegate = self
+    secondVC.fruitStore = self.fruitStore
+    self.present(secondVC, animated: true)
+}
+```
+
+1. StockView로 부터 fruitStore 값 전달
+
+```swift
+extension StoreViewController: StockViewControllerDelegate {
+    func stockViewController(_ stockViewController: StockViewController, didUpdateFruit: FruitStore) {
+        stockViewController.fruitStore = didUpdateFruit
+    }
+}
+```
+
+1. delegate 선언 및 사용
+
+```swift
+final class StockViewController: UIViewController {
+	weak var delegate: StockViewControllerDelegate?
+	@IBAction func onClickStepper(_ sender: UIStepper) {
+		delegate?.stockViewController(self, didUpdateFruit: fruitStore)
+  }
+}
+```
+
+- Delegate를 사용하기 위해서 참조한 예시 코드
+```swift
+struct 과일재고 {
+    var banana: Int
+    var apple: Int
+}
+
+class MainClass: UIViewController {
+    
+    var 과일재고: 과일재고!
+    var 비밀번호: Int!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    func 다음화면버튼누름() {
+        let secondVC = SecondClass()
+        secondVC.delegate = self
+        secondVC.수정할과일재고 = 과일재고
+        
+        present(secondVC, animated: true)
+    }
+    
+    func 절대접근하면큰일나는함수() {
+        
+    }
+}
+
+extension MainClass: SecondClassDelegate {
+    func secondClass(_ secondClass: SecondClass, didUpdatedFruit: 과일재고) {
+        // 업데이트
+        secondClass.나이
+        secondClass.이름
+    }
+}
+
+import CoreLocation
+protocol SecondClassDelegate: AnyObject {
+    func secondClass(_ secondClass: SecondClass, didUpdatedFruit: 과일재고)
+}
+// ARC
+// 클래스 -> 힙 영역 -> 인스턴스가 제거되는 시점? -> ARC == 0
+// 누가 자기 자신을 가리킬 때 +1
+class SecondClass: UIViewController, CLLocationManagerDelegate {
+    var 수정할과일재고: 과일재고!
+    var 이름: String!
+    var 나이: Int!
+    
+    weak var delegate: SecondClassDelegate?
+//    var 화면: MainClass!
+    // 과일 재고가 수정됬음
+    // 수정된 재고를 Main에 어떻게 반영함?
+    
+    // main에 값을 넣어주는게 필요하다.
+    
+    func 반영하는함수() {
+        delegate?.secondClass(self, didUpdatedFruit: 수정할과일재고)
+//        화면.과일재고 = 수정할과일재고
+//        화면.비밀번호
+//        화면.절대접근하면큰일나는함수()
+    }
+}
+```
