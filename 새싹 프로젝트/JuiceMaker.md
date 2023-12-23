@@ -207,6 +207,10 @@ enum Recipe: String {
 
 <br>
 
+| **클래스 다이어그램** |
+|---|
+| <img src="https://github.com/Gnoam-R/DailyCommit/assets/67363759/7e97793e-195d-492a-9219-d6aca905206d" width="100%%" height="100%"/> |
+
 
 </h1>
 <br><br>
