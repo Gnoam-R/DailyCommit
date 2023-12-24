@@ -26,4 +26,4 @@ var FruitValue = self.store.fruits[fruit]
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c6b4dd80-7f00-4276-8157-7d4dc020a261/fce53f6f-708f-4d24-929c-56e006e0b36e/Untitled.png)
 
-이유를 잘 모르겠다.  모든 컬랙션은 다 value를 가져올때 옵셔널 처리를 진행해야되는거 같음
+Collection 타입은 key값을 통해 Value를 가져올때 Optional 값으로 나오는걸 알게됨
