@@ -1,24 +1,75 @@
 ## 프로토콜 사용 방법에 관하여
 
-- 각기 다른 프로토콜을 typealias를 통해 하나의 type으로 묶어 버리는 방법
-- 위 방법의 장점으로 하나의 type만 사용하여 여러 type의 프로퍼티와 매서드를 적용할 수 있다.
+- Protocol을 사용해 추상화된 코드를 작성해보았다
+- 프로토콜 사용방법을 알게되었고 구상 및 구현에 집중해서 진행함
 
 ```swift
-protocol PromptDisplayable {
-    func displayPrompt(_ prompt: String)
+import UIKit
+
+var greeting = "Hello, playground"
+
+//Step 1 : 내가 사장이라면, 내 비서는 이런일을 해줬으면 좋겠다 상상하기
+//Step 2 : 상상한 것을 프로토콜로 표현해보기
+//Step 3 : 비서 프로토콜을 따르는 타입 3개 만들어보기
+//Step 4 : 사장 타입 만들어보기
+
+struct Coffee {
+    var taste: String = ""
 }
 
-protocol InputGettable {
-    func getInput() throws -> String
+protocol Secretary {
+    var age: Int { get }
+    var name: String { get }
+    var hometown: String { get }
+    
+    func makeCoffeeForMe() -> Coffee
+    
 }
 
-protocol OuputDisplayble {
-    func displayOutput(_ output: String)
+extension Secretary {
+    func driveForMe() {
+        print("부아앙")
+    }
+    func footMassageForMe() {
+        print("시원하다")
+    }
 }
 
-protocol HandGameErrorDisplayble {
-    func displayRPSError(_ error: HandGameError)
+struct OfficeSecretary: Secretary {
+    var age: Int
+    var name: String
+    var hometown: String
+    
+    func makeCoffeeForMe() -> Coffee {
+        Coffee(taste: "굿")
+    }
+    
+    func driveForMe() {
+        print("쾅")
+    }
+    
 }
 
-typealias IO = InputGettable & PromptDisplayable & OuputDisplayble & HandGameErrorDisplayble
+struct BodyGuard: Secretary {
+
+    var age: Int
+    var name: String
+    var hometown: String
+    
+    func makeCoffeeForMe() -> Coffee {
+        Coffee(taste: "우웩")
+    }
+    func footMassageForMe() {
+        print("발이 부러짐")
+    }
+
+}
+
+
+struct Boss {
+    func giveSalary(to: Secretary) {
+        to.thanksBoss()
+    }
+}
+
 ```
