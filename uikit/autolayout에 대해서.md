@@ -10,4 +10,4 @@
     - iOS 의 다양한 기기에 동적으로 대응하기 위해서 사용함
     - Auto Layout은 사용하고자 하는 뷰의 가로, 세로 크기를 정의 하면 안된다.
     - 수퍼 뷰에 대하여 top, Leading(left), trailing(right), bottom을 설정한다.
-    - storyBoard에서 뷰 생성하고 constraint를 설정하는 방법 배움 → 연습 필요
+    - storyBoard에서 뷰 생성하고 constraint를 설정하는 방법 배움
