@@ -81,7 +81,8 @@ private func processMenu(_ menu: Menu) {
         case mango = "망고쥬스 주문"
         case mangoKiwi = "망키쥬스 주문"
         
-        /// 쥬스 제조 시 필요한 과일 수량 반환하는 메서드
+        // 쥬스 제조 시 필요한 과일 수량 반환하는 메서드
+
         var checkFruitQuantity: [Fruit: Int] {
             switch self {
             case .strawberry:
@@ -103,6 +104,31 @@ private func processMenu(_ menu: Menu) {
     }
     ```
 
+    ### Enum 다양한 활용 방법
+    위 반환형 타입에 대한 자료형을 typealias를 통해 묶어 버림
+    ```swift
+    var recipe: JuiceIngredients {
+        switch self {
+        case .strawberry:
+            return [.strawberry: 16]
+        case .banana:
+            return [.banana: 2]
+        case .pineapple:
+            return [.pineapple: 2]
+        case .kiwi:
+            return [.kiwi: 3]
+        case .mango:
+            return [.mango: 3]
+        case .strawberryBanana:
+            return [.strawberry: 10, .banana: 1]
+        case .mangoKiwi:
+            return [.mango: 2, .kiwi: 1]
+        }
+    }
+
+    typealias JuiceIngredients = [Fruit: Int]
+    ```
+
 ## 잘못된 사용 방식 개선
 
 기존 사용방식은 switch case를 통해 열거형의 값을 분류하고 전달하는 방식이였다면 현재는 열거형의 매개변수로 전달하여 let 변수에 값을 저장함으로 따로 swith case문을 사용하지 않아도 되는 코드를 알게 되었습니다.
@@ -121,7 +147,7 @@ guard let selectedButtonTitle = sender.currentTitle,
 - 특정 항목에 한정하여 순환 열거형을 명시하고 싶다면 case 앞에 indirect 키워드를 사용
 - 모든 항목에 대해서 순환 열거형을 명시하고자 한다면 enum 앞에 indirect 키워드를 추가한다.
 
-특정 항목에 순환 열거형 항목 명시
+### 특정 항목에 순환 열거형 항목 명시
 ```swift
 enum ArithmeticExpression {
 	case number(Int)
@@ -130,7 +156,7 @@ enum ArithmeticExpression {
 }
 ```
 
-열거형 전체에 순환 열거형 명시
+### 열거형 전체에 순환 열거형 명시
 ```swift
 indirect enum ArithmeticExpression {
 	case number(Int)
@@ -138,10 +164,11 @@ indirect enum ArithmeticExpression {
 	case multiplication(ArithmecticExpression, ArithmeticExpression)
 }
 ```
-순환 열거형 사용
+### 순환 열거형 사용
 ```swift
 let five = ArithmeticExpression.number(5)
 let four = ArithmeticExpression.number(4)
 let sum = ArithmeticExpression.addition(five, four)
 let final = ArithmeticExpression.multiplication(sum, ArithmeticExpression.number(2))
 ```
+
