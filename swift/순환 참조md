@@ -1,0 +1,46 @@
+## 순환 참조란
+
+서로 다른 객체의 맴버가 서로를 참조하고 있을때 발생하며 두변수에 nil을 입력하게 되면 2개의 객체는 서로를 참조하고 있어 인스턴스는 제거되지만 쓸모없는 메모리만이 남겨지는 현상을 말한다.
+
+```swift
+var john: Person?
+var unit4A: Apartment?
+
+john = Person(name: "John Appleseed")
+unit4A = Apartment(unit: "4A")
+
+john!.apartment = unit4A
+unit4A!.tenant = john
+```
+
+순환 참조가 쌓이면 앱이 죽거나 메모리 이슈가 발생한다. 메모리 누수가 쌓이면 배터리 소모량이 증가하고 동작이 느려지고 크래시가 발생한다. 그러므로 항상 메모리 누수를 조심하면서 코드를 작성해야 한다.
+
+## 순환 참조를 방지하는 방법
+
+### weak self
+weak은 프로퍼티나 변수 앞에 적는 키워드로 약한 참조를 의미한다. 약한 참조라는 것은 참조하는 인스턴스를 강하게 유지하지 않는 참조로, ARC가 참조된 인스턴스를 처리하는 것을 막지 않는다는 걸 말한다. 
+
+아까 말했드시 인스턴스가 제거되면 사용되지 않는 메모리는 남아있게됨
+
+```swift
+class Person {
+    let name: String
+    init(name: String) { self.name = name }
+    var apartment: Apartment?
+    deinit { print("\(name) is being deinitialized") }
+}
+
+class Apartment {
+    let unit: String
+    init(unit: String) { self.unit = unit }
+    weak var tenant: Person?	// weak 키워드로 선언한 약한 참조 변수!
+    deinit { print("Apartment \(unit) is being deinitialized") }
+}
+```
+
+<img width="814" alt="image" src="https://github.com/Gnoam-R/Human_Centric/assets/67363759/36510a77-41b6-4c61-badb-e5c9cf48325a">
+
+그래서 john 변수를 nil로 초기화하면 더 이상 Person 인스턴스에 대해 강한 참조를 가지지 않기 때문에 할당 해제된다.
+
+참고 자료
+https://velog.io/@minji0801/iOS-Swift-weak-self%EB%8A%94-%EC%99%9C-%EC%93%B8%EA%B9%8C
