@@ -1,40 +1,34 @@
-# ContactManager
+# Json
 
-## 🤔 Step1 개발 구현 사항
+- sonDecoder
+    - JsonDecoder의 decode기능을 사용하기 위해서 입력되는 jsonData와 변환 하고 싶은 자료형을 매개변수로 입력받음
 
-**Step 1-1 모델타입 구현**
+```swift
+let stringData =
+    """
+    [
+        {
+            "name": "알버트 아인슈타인",
+            "occupation": "이론 물리학자",
+            "birthplace": "독일",
+            "works": "상대성 이론"
+        },
+        {
+		]
+		"""
+// jsonData의 Data형식(utf-8)로 변환
+guard let jsonData = stringData.data(using: .utf8) else {
+    return
+}
 
-- 아래 내용 고려하여 **Model 타입을 구현**합니다.
-    - 연락처 관리앱은 사용자로부터 이름, 연락처, 나이에 대한 정보를 전달받습니다.
-    - 연락처를 관리하기 위해 필요한 기능은 아래와 같습니다.
-        - 연락처 보기
-        - 연락처 추가
-        - 연락처 삭제
-        - 연락처 변경(optional)
+let decoder = JSONDecoder()
+// JsonData에 []를 넣었는데 JsonData의 값이 배열로 이루어져 있기 때문에 자료형을 맞춰줘야 하는 필요가 있음
+let object = try decoder.decode([JsonData].self, from: jsonData)
 
-**Step 1-2 TableView의 사용**
+print(object)
 
-- Table View를 활용하여 연락처 목록을 화면에 표시합니다
-- 각 행의 cell은 **subtitle style**을 사용합니다
-- 각 행(row)에 표시할 항목
-    - 이름, 나이, 연락처
-        - 이름옆에 괄호로 나이가 위치합니다.
-        - 연락처는 `이름(나이)` 아래에 위치합니다.
 
-## 🤔 구현 이슈 사항
-
-연락처 앱을 개발하면서 중점적으로 고민했던 사항은 
-
-- 연락처 데이터 주입에 대한 방법
-- UITableView
-- CoreData 사용 여부
-- 연락처 저장 항목에 대한 모듈화
-- contact manger의 특정 항목 삭제
-
-연락처 데이터를 주입하는데 사용자의 입력을 통해서 데이터 저장이 이루어져야 하는데 이 방법에 대한 고민을 하게 되었는데, 만약 사용자 UI를 만드는 상황이 있다면 주어진 요구사항에서 연락처 데이터를 입력하는 새로운 화면을 추가해야 된다는 생각을 했습니다. 다른 방법으로는 앱내에 지정 생성자를 통해 사용자의 입력을 미리 만들어서 구현하는 방법이 있을거 같아요.
-
-`UITableView`의 경우 새로운 `UIViewController`를 생성하여 기존 ViewController와는 독립적으로 `UITableView`를 상속 받아서 구현하는 방식과 ViewController의 extension으로 `delegate`와 `datasource`를 위임 받아서 사용하는 방법이 있습니다. 이 중에서 어떤 방안을 택할지 고민을 하게 되었습니다.
-
-`ContactListStorage` 클래스를 생성하고 ViewController에서 해당 클래스에 접근시 인스턴스 메서드를 통해서 접근 가능하게 작성했습니다. 따라서 실제 저장소 클래스의 변수에는 직접 접근이 불가능하도록 구현했다.
-
-`UITableView`의 각 줄(row)에 대한 `pos`값을 통해 `Storage`에 저장된 `item`(연락처 데이터)가 각각 저장되어야 한다. 따라서 UITableView에 대한 접근은 `pos`값인 Int, 연락처 구조체에 접근에 대한 `key`값은 String으로 작성하게되었음 → 불필요한 방법이라는 생각이 있음
+/* 결과
+Optional([tableView.JsonData(name: "알버트 아인슈타인", occupation: "이론 물리학자", birthplace: "독일", works: "상대성 이론"), tableView.JsonData(name: "마하트마 간디", occupation: "독립 운동 지도자", birthplace: "인도", works: "비폭력 저항"), tableView.JsonData(name: "마더 테레사", occupation: "로마 가톨릭 수녀", birthplace: "알바니아", works: "가난한 이들 돕기")])
+*/
+```
