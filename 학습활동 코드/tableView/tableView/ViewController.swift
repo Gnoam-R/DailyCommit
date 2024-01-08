@@ -86,7 +86,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        20
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,6 +94,7 @@ extension ViewController: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             cell?.textLabel?.text = showData?[indexPath.section].occupation
+//            cell?.backgroundColor = .red
             break
         case 1:
             cell?.textLabel?.text = showData?[indexPath.section].birthplace
