@@ -79,3 +79,33 @@ contacListStorage를 내부에서 들고 있는 형태를 가지네요?
 D.I (Dependency Injection)에 대해서 공부해보시면 좋을 것 같아요.
 
 D.I의 방법에대해 공부해보시고 저한테 소개해주시면 좋을 것 같아요.
+
+답변 :
+ 외부에서 contactListStorage를 외부에서 의존성을 부여하는 방식 즉
+ contactListStorage를 contactListView의 지정 생성자를 통해 전달하는 방식에 대해서 고민하게 되었습니다.
+
+ SceneDelegate에서 의존성을 ContactListView에 부여하는 방식
+```swift
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+    
+    
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        let contactListStorage = ContactListStorage()
+        더미데이터(Storage: contactListStorage)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+
+        let firstViewController = storyBoard.instantiateViewController(identifier: "ContactListView") { coder in
+            return ContactListView.init(coder: coder, contactListStorage: contactListStorage)
+        }
+        
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = firstViewController
+        window.makeKeyAndVisible()
+        self.window = window
+    }
+}
+```
+위 방식으로 코드를 구현하게 되면 ContactListStorage에 대한 객체 생성을 ContactListView 내에서 구현하지 않아도 되기 때문에 위와 같은 코드를 작성하게 됨
