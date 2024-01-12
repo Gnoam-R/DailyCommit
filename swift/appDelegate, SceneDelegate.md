@@ -1,29 +1,26 @@
-## 🤔 **~= 연산자**
+## 🤔 SceneDelegate **
 
-- 대상이 특정 범위에 속하는지 범위를 체크하는 연산자
-- ~= 연산자의 우변이 좌변 안에 속하는지
+SceneDelegate에서 의존성을 ContactListView에 부여하는 방식
 ```swift
-// 숫자 5가 0~10 사이일 떄 10을 곱해주는 코드
-var n = 5
-if 0..<10 ~= n {
-  n *= 10
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+    
+    
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        let contactListStorage = ContactListStorage()
+        더미데이터(Storage: contactListStorage)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+
+        let firstViewController = storyBoard.instantiateViewController(identifier: "ContactListView") { coder in
+            return ContactListView.init(coder: coder, contactListStorage: contactListStorage)
+        }
+        
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = firstViewController
+        window.makeKeyAndVisible()
+        self.window = window
+    }
 }
-
-print(n) // 50
-
-// func에서 매개변수로 입력된 string 값을 찾는 코드
-
-func checkLowercase(str: String) -> Bool {
-  if "a"..."z" ~= str {
-    // str contain lowercased alpabet
-    return true
-  } else {
-    // Not found lowercased alpabet
-    return false
-  }
-}
-
-checkLowercase(str: "a") // true
-checkLowercase(str: "aA") // true
-checkLowercase(str: "A") // false
 ```
