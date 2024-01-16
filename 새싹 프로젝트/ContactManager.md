@@ -1,4 +1,6 @@
-# Json
+# 연락처 앱 [Step1]
+
+## Json 사용법
 
 - sonDecoder
     - JsonDecoder의 decode기능을 사용하기 위해서 입력되는 jsonData와 변환 하고 싶은 자료형을 매개변수로 입력받음
@@ -109,3 +111,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 }
 ```
 위 방식으로 코드를 구현하게 되면 ContactListStorage에 대한 객체 생성을 ContactListView 내에서 구현하지 않아도 되기 때문에 위와 같은 코드를 작성하게 됨
+
+# 연락처 앱 [STEP2]
+
+## Step2 설계 및 구현 설명
+
+### 새 연락처 추가
+
+앱 실행시 나타나는 첫번째 화면 `tableView`에서 `navigation` 바 버튼을 터치하면 애니메이션과 함께 두번째 화면인 `Modal View`가 나타납니다. 새로운 연락처를 추가하기 위해서 `View` 구성과 연락처를 추가하기 위한 로직을 구현했습니다.
+
+두번째 화면에 대한 뷰 컨트롤러인 `AddContactView`는 첫번째 화면의 뷰 컨트롤러인 ContactListView와 마찬가지로 `SceneDelegate`에서 생성된 연락처 저장소 객체의 주소를 지정 생성자를 통해 전달 받습니다. 
+
+`AddContactView` 의 각 `textField`는 사용자의 잘못된 입력에 대한 오류 처리를 위해서 `Alert`기능으로 사용자에게 올바른 입력을 제안해주게 됩니다. 또한 `textField`에 종류에 따라 다른 `Alert`를 출력하게 됩니다.
+
+### Alert 구현
+
+`AddContactView`에서 발생되는 오류에 따라 서로 다른 알림 화면을 출력해야 되기 때문에 외부에서 조건문을 쓰는 방식 보다 내부에서 사용하는 `enum`을 사용했습니다.
+
+### 연락처 유효성 검사
+
+사용자의 개인 정보가 비정상적인 입력으로 저장될때 해당 데이터의 유효성 검사를 실시하여 사용자에게 올바른 방식의 입력을 요청하기 위한 로직 입니다.
+
+`ContactValidateCheck` 은 연락처 정보인 이름, 나이, 전화번호가 개발자가 정의한 올바른 상태인지를 확인하고 유효성 검사에서 실패하는 경우 Error를 던집니다.
+
+### 전화번호 구분자
+
+사용자가 입력하는 번호에 따라서 구분자를 추가합니다. 구분자의 배치는 첫번째 구분자의 이전에 입력되는 번호에 따라 달라집니다.
