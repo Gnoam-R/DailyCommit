@@ -56,6 +56,7 @@ extension ViewController: UITableViewDataSource {
             return cell
         }
 
+        
         let _ = URLSession.shared.dataTask(with: resultURL) { data, response, error in
             if let error = error {
                 print("error: \(error)")
