@@ -30,8 +30,9 @@ class ViewController: UIViewController {
         locationManager.startUpdatingLocation()
         view.backgroundColor = .systemPink
         
-        let cityName = "애플 본사"
+        let cityName = "서울특별시 용두동 39-1"
         let geocoder = CLGeocoder()         // 주소를 변환해줌
+        
         geocoder.geocodeAddressString(cityName) { (placemark, error) in
           guard error == nil else {return print(error!.localizedDescription)}//에러가 없으면 아래코드 실행
           guard let location = placemark?.first?.location else { return print("데이터가 없습니다.")}
