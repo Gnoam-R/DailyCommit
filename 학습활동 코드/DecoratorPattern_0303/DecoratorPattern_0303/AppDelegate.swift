@@ -1,26 +1,16 @@
 //
 //  AppDelegate.swift
-//  CoreData_0219
+//  DecoratorPattern_0303
 //
-//  Created by Roh on 2/19/24.
+//  Created by Roh on 3/3/24.
 //
 
 import UIKit
-import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    // MARK: - CoreData
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Users") // 파일명 명시
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error {
-                fatalError("Unresolved error, \((error as NSError).userInfo)")
-            }
-        })
-        return container
-    }()
+
+
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
