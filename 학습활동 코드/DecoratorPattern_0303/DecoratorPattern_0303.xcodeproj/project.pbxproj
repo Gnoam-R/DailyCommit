@@ -17,6 +17,7 @@
 		CC176C2C2B93FF0B00AF16FE /* DecoratorPattern_0303UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC176C2B2B93FF0B00AF16FE /* DecoratorPattern_0303UITests.swift */; };
 		CC176C2E2B93FF0B00AF16FE /* DecoratorPattern_0303UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC176C2D2B93FF0B00AF16FE /* DecoratorPattern_0303UITestsLaunchTests.swift */; };
 		CC176C3B2B93FF6C00AF16FE /* NotifierComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC176C3A2B93FF6C00AF16FE /* NotifierComponent.swift */; };
+		CC176C3F2B943B5B00AF16FE /* Espresso.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC176C3E2B943B5B00AF16FE /* Espresso.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		CC176C2B2B93FF0B00AF16FE /* DecoratorPattern_0303UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorPattern_0303UITests.swift; sourceTree = "<group>"; };
 		CC176C2D2B93FF0B00AF16FE /* DecoratorPattern_0303UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorPattern_0303UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		CC176C3A2B93FF6C00AF16FE /* NotifierComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifierComponent.swift; sourceTree = "<group>"; };
+		CC176C3E2B943B5B00AF16FE /* Espresso.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Espresso.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 		CC176C092B93FF0A00AF16FE /* DecoratorPattern_0303 */ = {
 			isa = PBXGroup;
 			children = (
+				CC176C3D2B943B4600AF16FE /* Gnoam */,
 				CC176C3C2B93FF7500AF16FE /* Notification */,
 				CC176C0A2B93FF0A00AF16FE /* AppDelegate.swift */,
 				CC176C0C2B93FF0A00AF16FE /* SceneDelegate.swift */,
@@ -136,6 +139,14 @@
 				CC176C3A2B93FF6C00AF16FE /* NotifierComponent.swift */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		CC176C3D2B943B4600AF16FE /* Gnoam */ = {
+			isa = PBXGroup;
+			children = (
+				CC176C3E2B943B5B00AF16FE /* Espresso.swift */,
+			);
+			path = Gnoam;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +283,7 @@
 				CC176C3B2B93FF6C00AF16FE /* NotifierComponent.swift in Sources */,
 				CC176C0F2B93FF0A00AF16FE /* ViewController.swift in Sources */,
 				CC176C0B2B93FF0A00AF16FE /* AppDelegate.swift in Sources */,
+				CC176C3F2B943B5B00AF16FE /* Espresso.swift in Sources */,
 				CC176C0D2B93FF0A00AF16FE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
