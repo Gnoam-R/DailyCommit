@@ -12,6 +12,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        let notifer = Notifier()
+        let emailNotifier = EmailDecorator(notifier: notifer)
+        let slackNotifier = SlackDecorator(notifier: notifer)
+        slackNotifier.notify(message: "bye")
+        
     }
 
 
