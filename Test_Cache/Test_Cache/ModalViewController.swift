@@ -19,47 +19,40 @@ class ModalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let cachedImage = NSCacheManager.shared.cachedImage(urlString: catUrlString) {
-            DispatchQueue.main.async {
-                self.catImageView.image = cachedImage
-            }
+        
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             return
         }
+        // disk cache(file) check
+        
+        guard let url = URL(string: catUrlString) else {
+            return
+        }
+        
+        NSCacheManager.shared.checkFile(url: url, completion: { [self] data in
+            DispatchQueue.main.async {
+                self.catImageView.image = UIImage(data: data)
+            }
+        })
     }
     
     // MARK: Functions
 
     @IBAction func bringCatButtonTapped(_ sender: UIButton) {
         
-        loadImage(from: catUrlString, into: catImageView)
-    }
-    
-    func loadImage(from urlString: String, into imageView: UIImageView) {
-//    func loadImage(from urlString: String, into imageView: UIImageView) {
+        // cache
+//        NSCacheManager.shared.loadImage(from: catUrlString, into: catImageView)
         
-        
-        guard let url = URL(string: urlString) else {
-            print("Failed to create URL")
+        // disk cache
+        guard let url = URL(string: catUrlString) else {
             return
         }
-        
-        URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-            guard let self = self else { return }
-            
-            if let error = error {
-                print("Failed to load image: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = data, let image = UIImage(data: data) else {
-                print("Failed to convert data to image")
-                return
-            }
-            
+        NSCacheManager.shared.loadImage(url: url, completion: { [self] data in
             DispatchQueue.main.async {
-                imageView.image = image
+                self.catImageView.image = UIImage(data: data)
             }
-            NSCacheManager.shared.setObject(image: image, urlString: urlString)
-        }.resume()
+        })
     }
+    
+    
 }
