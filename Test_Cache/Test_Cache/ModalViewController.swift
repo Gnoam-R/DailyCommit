@@ -19,15 +19,25 @@ class ModalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let cachedImage = NSCacheManager.shared.cachedImage(urlString: catUrlString) {
+            DispatchQueue.main.async {
+                self.catImageView.image = cachedImage
+            }
+            return
+        }
     }
     
     // MARK: Functions
 
     @IBAction func bringCatButtonTapped(_ sender: UIButton) {
+        
         loadImage(from: catUrlString, into: catImageView)
     }
     
     func loadImage(from urlString: String, into imageView: UIImageView) {
+//    func loadImage(from urlString: String, into imageView: UIImageView) {
+        
+        
         guard let url = URL(string: urlString) else {
             print("Failed to create URL")
             return
@@ -49,6 +59,7 @@ class ModalViewController: UIViewController {
             DispatchQueue.main.async {
                 imageView.image = image
             }
+            NSCacheManager.shared.setObject(image: image, urlString: urlString)
         }.resume()
     }
 }

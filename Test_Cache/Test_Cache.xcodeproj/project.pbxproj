@@ -14,6 +14,7 @@
 		2B4BF8F52B95553600572331 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B4BF8F42B95553600572331 /* Assets.xcassets */; };
 		2B4BF8F82B95553600572331 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B4BF8F62B95553600572331 /* LaunchScreen.storyboard */; };
 		2B4BF9002B9556E800572331 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4BF8FF2B9556E800572331 /* ModalViewController.swift */; };
+		CC176C582B9599AA00AF16FE /* NSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC176C572B9599AA00AF16FE /* NSCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		2B4BF8F72B95553600572331 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2B4BF8F92B95553600572331 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B4BF8FF2B9556E800572331 /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
+		CC176C572B9599AA00AF16FE /* NSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				2B4BF8ED2B95553300572331 /* SceneDelegate.swift */,
 				2B4BF8EF2B95553300572331 /* ViewController.swift */,
 				2B4BF8FF2B9556E800572331 /* ModalViewController.swift */,
+				CC176C572B9599AA00AF16FE /* NSCacheManager.swift */,
 				2B4BF8F12B95553300572331 /* Main.storyboard */,
 				2B4BF8F42B95553600572331 /* Assets.xcassets */,
 				2B4BF8F62B95553600572331 /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B4BF9002B9556E800572331 /* ModalViewController.swift in Sources */,
+				CC176C582B9599AA00AF16FE /* NSCacheManager.swift in Sources */,
 				2B4BF8F02B95553300572331 /* ViewController.swift in Sources */,
 				2B4BF8EC2B95553300572331 /* AppDelegate.swift in Sources */,
 				2B4BF8EE2B95553300572331 /* SceneDelegate.swift in Sources */,
