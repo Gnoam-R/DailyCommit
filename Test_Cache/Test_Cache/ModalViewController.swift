@@ -20,36 +20,29 @@ class ModalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            return
-        }
         // disk cache(file) check
-        
         guard let url = URL(string: catUrlString) else {
             return
         }
         
-        NSCacheManager.shared.checkFile(url: url, completion: { [self] data in
+        NSCacheManager.shared.checkFile(url: url, completion: { [weak self] data in
+            print("hello")
             DispatchQueue.main.async {
-                self.catImageView.image = UIImage(data: data)
+                self?.catImageView.image = UIImage(data: data)
             }
         })
     }
     
     // MARK: Functions
-
     @IBAction func bringCatButtonTapped(_ sender: UIButton) {
-        
-        // cache
-//        NSCacheManager.shared.loadImage(from: catUrlString, into: catImageView)
-        
         // disk cache
         guard let url = URL(string: catUrlString) else {
             return
         }
-        NSCacheManager.shared.loadImage(url: url, completion: { [self] data in
+        
+        NSCacheManager.shared.loadImage(url: url, completion: { [weak self] data in
             DispatchQueue.main.async {
-                self.catImageView.image = UIImage(data: data)
+                self?.catImageView.image = UIImage(data: data)
             }
         })
     }
